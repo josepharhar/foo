@@ -1,0 +1,3 @@
+[submodule "sockets/client/Beast"]
+	path = sockets/client/Beast
+	url = git@github.com:vinniefalco/Beast.git
