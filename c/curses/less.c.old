@@ -1,0 +1,80 @@
+#include <stdlib.h>
+#include <curses.h>
+#include <signal.h>
+#include <stdio.h>
+
+static FILE* inFile = NULL;
+
+void endProgram() {
+    endwin();
+    if (inFile) {
+        fclose(inFile);
+    }
+    exit(0);
+}
+
+void sigintHandler(int dummy) {
+    printf("captured sigint, exiting...\n");
+    endProgram();
+}
+
+void initialize() {
+    initscr(); // initializes screen
+    cbreak(); // disables line buffering and keeps signals
+    keypad(stdscr, TRUE); // captures function keys, etc.
+    noecho(); // don't print to console when user types
+}
+
+// this will use stdscr for now
+void updateScreen(FILE *inFile, unsigned int location) {
+    
+}
+
+int main(int argc, char **argv) { 
+    if (argc < 2) {
+        printf("no input file specified\n");
+        return 1;
+    }
+    inFile = fopen(argv[1], "r");
+    if (!inFile) {
+        printf("failed to open file: %s\n", argv[1]);
+    }
+
+    initialize();
+
+    signal(SIGINT, sigintHandler); // set SIGINT handler
+
+    unsigned int location = 0; // "y" coordinate that represents the top of the terminal and how far it is from the top of the file
+
+//    int ch;
+//    while (1) {
+//        ch = getch();
+//        printw("The pressed key is: ");
+//        attron(A_BOLD);
+//        printw("%c\n", ch);
+//        attroff(A_BOLD);
+//
+//        if (ch == 'j') {
+//            printw("you typed j!\n");
+//        }
+//    }
+
+    int ch = 4880;
+    int row = 4880;
+    int col = 4880;
+    refresh();
+    printw("row: %u, col: %u\n");
+    ch = getch();
+    getbegyx(stdscr, row, col);
+    refresh();
+    printw("row: %u, col: %u\n");
+    ch = getch();
+    getmaxyx(stdscr, row, col);
+    refresh();
+    printw("row: %u, col: %u\n");
+    ch = getch();
+
+    endProgram();
+
+    return 0;
+}

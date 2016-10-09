@@ -1,0 +1,2 @@
+build with:
+gcc test.c -lncurses
