@@ -1,0 +1,7 @@
+name: TestPlugin
+main: net.arhar.testplugin.TestPlugin
+version: 1.0
+commands:
+  asdf:
+    description: this is an asdf command
+    usage: /<commmand>
