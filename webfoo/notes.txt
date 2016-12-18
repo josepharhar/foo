@@ -1,0 +1,8 @@
+root access is required for port 80 and all ports below 1024
+to get spring/java stuff to access port 80, it would be best to use iptables
+http://stackoverflow.com/questions/33703965/spring-boot-running-app-on-port-80
+
+mvn package
+generates a jar that should be able to run anywhere and have the whole website running
+mvn spring-boot:run
+runs the server and seems to skip the jar part
